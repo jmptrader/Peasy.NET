@@ -2,6 +2,7 @@
 using Peasy.Core.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
+using System.Linq;
 
 namespace Peasy.Core.Tests
 {
@@ -19,7 +20,7 @@ namespace Peasy.Core.Tests
         public void Valid_Rule_Does_Not_Contain_An_Error_Message_After_Validation()
         {
             var rule = new TrueRule().Validate();
-            rule.ErrorMessage.ShouldBe(null);
+            rule.Errors.First().ShouldBe(null);
         }
 
         [TestMethod]
@@ -33,7 +34,7 @@ namespace Peasy.Core.Tests
         public void Invalid_Rule_Contains_An_Error_Message_After_Validation()
         {
             var rule = new FalseRule1().Validate();
-            rule.ErrorMessage.ShouldBe("FalseRule1 failed validation");
+            rule.Errors.First().ShouldBe("FalseRule1 failed validation");
         }
 
         [TestMethod]
@@ -41,7 +42,7 @@ namespace Peasy.Core.Tests
         {
             var rule1 = new TrueRule().IfValidThenValidate(new FalseRule1()).Validate();
             rule1.IsValid.ShouldBe(false);
-            rule1.ErrorMessage.ShouldBe("FalseRule1 failed validation");
+            rule1.Errors.First().ShouldBe("FalseRule1 failed validation");
         }
 
         [TestMethod]
@@ -49,17 +50,17 @@ namespace Peasy.Core.Tests
         {
             var rule1 = new FalseRule1().IfValidThenValidate(new FalseRule2()).Validate();
             rule1.IsValid.ShouldBe(false);
-            rule1.ErrorMessage.ShouldBe("FalseRule1 failed validation");
+            rule1.Errors.First().ShouldBe("FalseRule1 failed validation");
         }
 
         [TestMethod]
-        public void All_Remaining_Successors_Skip_Validation_When_First_Successor_Fails()
+        public void All_Successors_Partake_In_Validation()
         {
             var rule1 = new TrueRule()
                                 .IfValidThenValidate(new FalseRule1(), new FalseRule2(), new FalseRule3())
                                 .Validate();
             rule1.IsValid.ShouldBe(false);
-            rule1.ErrorMessage.ShouldBe("FalseRule1 failed validation");
+            rule1.Errors.Count().ShouldBe(3);
         }
 
         [TestMethod]
@@ -69,7 +70,7 @@ namespace Peasy.Core.Tests
                                 .IfValidThenValidate(new TrueRule(), new TrueRule(), new FalseRule1())
                                 .Validate();
             rule1.IsValid.ShouldBe(false);
-            rule1.ErrorMessage.ShouldBe("FalseRule1 failed validation");
+            rule1.Errors.First().ShouldBe("FalseRule1 failed validation");
         }
 
         [TestMethod]
@@ -80,7 +81,7 @@ namespace Peasy.Core.Tests
                               .IfValidThenValidate(new FalseRule2(), new FalseRule3())
                               .Validate();
             rule.IsValid.ShouldBe(false);
-            rule.ErrorMessage.ShouldBe("FalseRule1 failed validation");
+            rule.Errors.First().ShouldBe("FalseRule1 failed validation");
         } 
 
         [TestMethod]
@@ -91,7 +92,7 @@ namespace Peasy.Core.Tests
                               .IfValidThenValidate(new FalseRule2(), new FalseRule3())
                               .Validate();
             rule.IsValid.ShouldBe(false);
-            rule.ErrorMessage.ShouldBe("FalseRule2 failed validation");
+            rule.Errors.First().ShouldBe("FalseRule2 failed validation");
         } 
 
         [TestMethod]
@@ -102,7 +103,7 @@ namespace Peasy.Core.Tests
                               .IfValidThenValidate(new TrueRule(), new FalseRule3())
                               .Validate();
             rule.IsValid.ShouldBe(false);
-            rule.ErrorMessage.ShouldBe("FalseRule3 failed validation");
+            rule.Errors.First().ShouldBe("FalseRule3 failed validation");
         }
 
         [TestMethod]
@@ -122,7 +123,7 @@ namespace Peasy.Core.Tests
                             .IfValidThenValidate(new FalseRule1()
                                                       .IfValidThenValidate(new FalseRule2())).Validate();
             rule.IsValid.ShouldBe(false);
-            rule.ErrorMessage.ShouldBe("FalseRule1 failed validation");
+            rule.Errors.First().ShouldBe("FalseRule1 failed validation");
         }
 
         [TestMethod]
@@ -132,7 +133,7 @@ namespace Peasy.Core.Tests
                             .IfValidThenValidate(new TrueRule()
                                                       .IfValidThenValidate(new FalseRule1())).Validate();
             rule.IsValid.ShouldBe(false);
-            rule.ErrorMessage.ShouldBe("FalseRule1 failed validation");
+            rule.Errors.First().ShouldBe("FalseRule1 failed validation");
         }
 
         [TestMethod]
@@ -278,7 +279,7 @@ namespace Peasy.Core.Tests
                               .Validate();
             output.ShouldBe("pass");
             output2.ShouldBe(string.Empty);
-            rule.ErrorMessage.ShouldBe("FalseRule2 failed validation");
+            rule.Errors.First().ShouldBe("FalseRule2 failed validation");
         }
     }
 

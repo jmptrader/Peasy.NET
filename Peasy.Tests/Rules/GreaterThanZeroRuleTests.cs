@@ -1,6 +1,7 @@
 ﻿using Peasy.Rules;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shouldly;
+using System.Linq;
 
 namespace Peasy.Tests.Rules
 {
@@ -25,7 +26,7 @@ namespace Peasy.Tests.Rules
         public void Sets_ErrorMessage_On_Invalid()
         {
             var greaterThanZeroRule = new GreaterThanZeroRule(0, "the supplied value must be greater than 0");
-            greaterThanZeroRule.Validate().ErrorMessage.ShouldBe("the supplied value must be greater than 0");
+            greaterThanZeroRule.Validate().Errors.First().ShouldBe("the supplied value must be greater than 0");
         }
     }
 }

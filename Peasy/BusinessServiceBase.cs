@@ -25,7 +25,7 @@ namespace Peasy
         {
             var rule = id.CreateValueRequiredRule(nameof(id)).Validate();
             if (!rule.IsValid)
-                yield return new ValidationResult(rule.ErrorMessage, new string[] { typeof(T).Name });
+                yield return new ValidationResult(rule.Errors.First(), new string[] { typeof(T).Name });
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Peasy
         {
             var rule = id.CreateValueRequiredRule(nameof(id)).Validate();
             if (!rule.IsValid)
-                yield return new ValidationResult(rule.ErrorMessage, new string[] { typeof(T).Name });
+                yield return new ValidationResult(rule.Errors.First(), new string[] { typeof(T).Name });
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Peasy
                 {
                     var rule = new ConcurrencyCheckRule(current as IVersionContainer, entity as IVersionContainer).Validate();
                     if (!rule.IsValid)
-                        throw new ConcurrencyException(rule.ErrorMessage);
+                        throw new ConcurrencyException(rule.Errors.First());
                 }
 
                 entity.RevertNonEditableValues(current);
@@ -88,7 +88,7 @@ namespace Peasy
                 {
                     var rule = new ConcurrencyCheckRule(current as IVersionContainer, entity as IVersionContainer).Validate();
                     if (!rule.IsValid)
-                        throw new ConcurrencyException(rule.ErrorMessage);
+                        throw new ConcurrencyException(rule.Errors.First());
 
                 }
                 entity.RevertNonEditableValues(current);

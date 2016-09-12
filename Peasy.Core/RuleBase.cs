@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Peasy.Core
@@ -20,9 +21,15 @@ namespace Peasy.Core
         protected Action<IRule> _ifInvalidThenExecute;
 
         /// <summary>
-        /// Gets or sets the message to be supplied to caller in the event that no rule dependencies exist via IfValidThenValidate()
+        /// Deprecated: Gets or sets the message to be supplied to caller in the event that no rule dependencies exist via IfValidThenValidate()
         /// </summary>
         public string ErrorMessage { get; protected set; }
+
+        
+        /// <summary>
+        /// Returns a list of errors for rule and all successors
+        /// </summary>
+        public IEnumerable<string> Errors { get; } = new List<string>();
 
         /// <summary>
         /// Gets or sets a value indicating whether this rule is valid.
@@ -46,6 +53,7 @@ namespace Peasy.Core
             OnValidate();
             if (IsValid)
             {
+                _ifValidThenExecute?.Invoke(this);
                 if (Successor != null)
                 {
                     foreach (var ruleList in Successor)
@@ -55,15 +63,12 @@ namespace Peasy.Core
                             rule.Validate();
                             if (!rule.IsValid)
                             {
-                                Invalidate(rule.ErrorMessage);
+                                Invalidate(rule.Errors.ToArray());
                                 _ifInvalidThenExecute?.Invoke(this);
-                                break; // early exit, don't bother further rule execution
                             }
                         }
-                        if (!IsValid) break;
                     }
                 }
-                _ifValidThenExecute?.Invoke(this);
             }
             else
             {
@@ -120,9 +125,9 @@ namespace Peasy.Core
         /// Invalidates the rule
         /// </summary>
         /// <param name="errorMessage">The error message to associate with the broken rule</param>
-        protected virtual void Invalidate(string errorMessage)
+        protected virtual void Invalidate(params string[] errorMessages)
         {
-            ErrorMessage = errorMessage;
+            (Errors as List<string>).AddRange(errorMessages);
             IsValid = false;
         }
 
@@ -141,7 +146,7 @@ namespace Peasy.Core
                             await rule.ValidateAsync();
                             if (!rule.IsValid)
                             {
-                                Invalidate(rule.ErrorMessage);
+                                Invalidate(rule.Errors.ToArray());
                                 _ifInvalidThenExecute?.Invoke(this);
                                 break; // early exit, don't bother further rule execution
                             }
