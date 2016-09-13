@@ -10,8 +10,7 @@ namespace Peasy.Core.Tests
     {
         protected override void OnValidate()
         {
-            IsValid = false;
-            ErrorMessage = "FalseRule1 failed validation";
+            Invalidate("FalseRule1 failed validation");
         }
     }
 
@@ -19,8 +18,7 @@ namespace Peasy.Core.Tests
     {
         protected override void OnValidate()
         {
-            IsValid = false;
-            ErrorMessage = "FalseRule2 failed validation";
+            Invalidate("FalseRule2 failed validation");
         }
     }
 
@@ -28,8 +26,7 @@ namespace Peasy.Core.Tests
     {
         protected override void OnValidate()
         {
-            IsValid = false;
-            ErrorMessage = "FalseRule3 failed validation";
+            Invalidate("FalseRule3 failed validation");
         }
     }
 

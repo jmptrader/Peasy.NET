@@ -21,12 +21,6 @@ namespace Peasy.Core
         protected Action<IRule> _ifInvalidThenExecute;
 
         /// <summary>
-        /// Deprecated: Gets or sets the message to be supplied to caller in the event that no rule dependencies exist via IfValidThenValidate()
-        /// </summary>
-        public string ErrorMessage { get; protected set; }
-
-        
-        /// <summary>
         /// Returns a list of errors for rule and all successors
         /// </summary>
         public IEnumerable<string> Errors { get; } = new List<string>();

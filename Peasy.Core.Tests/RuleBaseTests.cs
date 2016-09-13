@@ -20,7 +20,7 @@ namespace Peasy.Core.Tests
         public void Valid_Rule_Does_Not_Contain_An_Error_Message_After_Validation()
         {
             var rule = new TrueRule().Validate();
-            rule.Errors.First().ShouldBe(null);
+            rule.Errors.ShouldBeEmpty();
         }
 
         [TestMethod]
