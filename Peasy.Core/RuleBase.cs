@@ -41,7 +41,7 @@ namespace Peasy.Core
         /// <summary>
         /// Validates this rule.
         /// </summary>
-        public IRule Validate()
+        public IRule Validate(bool validateAllSuccessors = true)
         {
             IsValid = true;
             OnValidate();
@@ -54,11 +54,12 @@ namespace Peasy.Core
                     {
                         foreach (var rule in ruleList)
                         {
-                            rule.Validate();
+                            rule.Validate(validateAllSuccessors);
                             if (!rule.IsValid)
                             {
                                 Invalidate(rule.Errors.ToArray());
                                 _ifInvalidThenExecute?.Invoke(this);
+                                if (!validateAllSuccessors) break;
                             }
                         }
                     }

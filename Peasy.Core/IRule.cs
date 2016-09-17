@@ -11,7 +11,7 @@ namespace Peasy.Core
         IRule IfValidThenExecute(Action<IRule> method);
         IRule IfValidThenValidate(params IRule[] rule);
         bool IsValid { get; }
-        IRule Validate();
+        IRule Validate(bool shortCircuitOnFirstFailedSuccessor = true);
         Task<IRule> ValidateAsync();
     }
 }

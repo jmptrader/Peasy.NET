@@ -207,9 +207,9 @@ namespace Peasy.Core.Tests.Extensions
         public void IfAllValidateThenValidate_Does_Not_Validate_On_Failure()
         {
             var number = 0;
-            var rules = new List<IRule> { new TrueRule(), new TrueRule() };
+            var rules = new List<IRule> { new TrueRule(), new FalseRule1() };
             var rule = rules.IfAllValidThenValidate(new TrueRule().IfValidThenExecute((r) => number = 42));
-            rule.Validate();
+            rule.Validate(false);
             number.ShouldBe(0);
         }
     }
