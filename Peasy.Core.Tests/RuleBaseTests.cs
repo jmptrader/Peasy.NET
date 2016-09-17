@@ -31,6 +31,14 @@ namespace Peasy.Core.Tests
         }
 
         [TestMethod]
+        public void Invalid_Rule_Resets_Errors_On_Successive_Validation()
+        {
+            var rule = new FalseRule1().Validate();
+            rule.Validate();
+            rule.Errors.Count().ShouldBe(1);
+        }
+
+        [TestMethod]
         public void Invalid_Rule_Contains_An_Error_Message_After_Validation()
         {
             var rule = new FalseRule1().Validate();

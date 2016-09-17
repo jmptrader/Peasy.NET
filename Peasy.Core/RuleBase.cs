@@ -44,6 +44,7 @@ namespace Peasy.Core
         public IRule Validate(bool shortCircuitOnFirstFailedSuccessor = true)
         {
             IsValid = true;
+            (Errors as List<string>).Clear();
             OnValidate();
             if (IsValid)
             {
