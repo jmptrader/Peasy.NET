@@ -209,7 +209,7 @@ namespace Peasy.Core.Tests.Extensions
             var number = 0;
             var rules = new List<IRule> { new TrueRule(), new FalseRule1() };
             var rule = rules.IfAllValidThenValidate(new TrueRule().IfValidThenExecute((r) => number = 42));
-            rule.Validate(false);
+            rule.Validate();
             number.ShouldBe(0);
         }
     }

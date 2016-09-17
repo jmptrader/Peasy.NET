@@ -58,7 +58,7 @@ namespace Peasy.Core.Tests
         {
             var rule1 = new TrueRule()
                                 .IfValidThenValidate(new FalseRule1(), new FalseRule2(), new FalseRule3())
-                                .Validate();
+                                .Validate(false);
             rule1.IsValid.ShouldBe(false);
             rule1.Errors.Count().ShouldBe(3);
         }
