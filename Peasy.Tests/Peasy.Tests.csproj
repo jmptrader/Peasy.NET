@@ -39,6 +39,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Moq, Version=4.6.38.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.6.38-alpha\lib\net45\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Shouldly, Version=2.6.0.0, Culture=neutral, PublicKeyToken=6042cbcb05cbc941, processorArchitecture=MSIL">
       <HintPath>..\packages\Shouldly.2.6.0\lib\net40\Shouldly.dll</HintPath>
       <Private>True</Private>
@@ -63,21 +71,24 @@
   <ItemGroup>
     <Compile Include="Attributes\PeasyRequiredAttributeTests.cs" />
     <Compile Include="BusinessServiceBaseTests.cs" />
+    <Compile Include="CommandTests.cs" />
     <Compile Include="Extensions\DomainObjectExtensionsTests.cs" />
+    <Compile Include="Extensions\IDomainObjectExtensionsTests.cs" />
+    <Compile Include="Extensions\IRuleExtensionsTests.cs" />
+    <Compile Include="RuleBaseTests.cs" />
     <Compile Include="Rules\ConcurrencyCheckRuleTests.cs" />
     <Compile Include="Rules\GreaterThanZeroRuleTests.cs" />
     <Compile Include="Rules\ValueRequiredRuleTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceBaseTests.cs" />
+    <Compile Include="ServiceCommandTests.cs" />
+    <Compile Include="SharedClasses.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\Peasy.Core\Peasy.Core.csproj">
-      <Project>{034e1545-4697-4bc1-aa2a-3355e125b75f}</Project>
-      <Name>Peasy.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Peasy\Peasy.csproj">
       <Project>{0223227f-932f-4c63-8fa1-69840e63df49}</Project>
       <Name>Peasy</Name>

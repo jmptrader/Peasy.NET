@@ -40,30 +40,42 @@
     <Compile Include="Attributes\PeasyDisplayNameAttribute.cs" />
     <Compile Include="Attributes\PeasyRequiredAttribute.cs" />
     <Compile Include="BusinessServiceBase.cs" />
+    <Compile Include="Command.cs" />
     <Compile Include="Exception\ConcurrencyException.cs" />
     <Compile Include="Exception\DomainObjectNotFoundException.cs" />
     <Compile Include="Exception\PeasyException.cs" />
+    <Compile Include="ExecutionContext.cs" />
+    <Compile Include="ExecutionResult.cs" />
     <Compile Include="Extensions\DomainObjectExtensions.cs" />
     <Compile Include="Attributes\PeasyForeignKeyAttribute.cs" />
     <Compile Include="Extensions\ExpressionExtensions.cs" />
     <Compile Include="Extensions\GenericExtensions.cs" />
+    <Compile Include="Extensions\IDomainObjectExtensions.cs" />
+    <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Extensions\IntExtensions.cs" />
+    <Compile Include="Extensions\IRuleExtensions.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="ICommand.cs" />
+    <Compile Include="IDataProxy.cs" />
+    <Compile Include="IDomainObject.cs" />
+    <Compile Include="IRule.cs" />
+    <Compile Include="IService.cs" />
+    <Compile Include="ISupportCRUD.cs" />
+    <Compile Include="ISupportCRUDAsync.cs" />
     <Compile Include="IVersionContainer.cs" />
     <Compile Include="ILatencyProneStatusProvider.cs" />
     <Compile Include="IServiceDataProxy.cs" />
     <Compile Include="ITransactionSupportStatusProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RuleBase.cs" />
     <Compile Include="Rules\ConcurrencyCheckRule.cs" />
     <Compile Include="Rules\GreaterThanZeroRule.cs" />
     <Compile Include="Rules\PropertyValueRequiredRule.cs" />
     <Compile Include="Rules\ValueRequiredRule.cs" />
     <Compile Include="ITransactionContext.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Peasy.Core\Peasy.Core.csproj">
-      <Project>{034e1545-4697-4bc1-aa2a-3355e125b75f}</Project>
-      <Name>Peasy.Core</Name>
-    </ProjectReference>
+    <Compile Include="ServiceBase.cs" />
+    <Compile Include="ServiceCommand.cs" />
+    <Compile Include="ServiceException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
